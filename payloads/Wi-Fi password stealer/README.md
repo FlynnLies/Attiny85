@@ -7,7 +7,7 @@ As the name suggests it grabs stored wifi passwords on windows and send their pl
 Starts cmd in a small window in order to grab less attention
 
 **2.** WifiKey-Grab_Minimize-of-Shame.ino:<br>
-No more shame! Simply minimizes the window. Does not start a minature window like 1 though.
+No more shame! Simply minimizes the window. Does not start a minature window like 1 though.<br>
 Previously started cmd in a small window but also hid the cmd by scrolling it down the screen method defined in hak5darren's rubberducky wiki [Payload hide cmd window](https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payload---hide-cmd-window)
 
 ### Tested on:
